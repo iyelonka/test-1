@@ -9,3 +9,9 @@
 .mat-card {
   cursor: pointer;
 }
+
+.mat-card-image {
+  display: block;
+  background: #ccc url('../../assets/images/placeholder-image.png') center center no-repeat;
+  background-size: cover; 
+}

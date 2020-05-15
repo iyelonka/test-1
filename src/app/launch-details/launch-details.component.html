@@ -1,9 +1,12 @@
 <ng-container *ngIf="launchDetails$ | async as launchDetails">
-  <section style="padding-top: 20px;">
-    <mat-card style="width: 400px; margin: auto;">
-      <mat-card-header>
-        <mat-card-title>{{ launchDetails.mission_name }}</mat-card-title>
-      </mat-card-header>
+  <mat-toolbar color="primary">
+    <span class="material-icons" [routerLink]="['/']">
+      navigate_before
+    </span>
+    {{ launchDetails.mission_name }}
+  </mat-toolbar>
+  <section style="padding-top: 20px; display: flex; justify-content: space-around">
+    <mat-card style="width: 400px;">
       <img
         height="256"
         width="256"
@@ -15,15 +18,25 @@
         <p>{{ launchDetails.details }}</p>
       </mat-card-content>
     </mat-card>
-  </section>
-  <section class="photo-grid">
-    <img
-      *ngFor="let pic of launchDetails.links.flickr_images"
-      [src]="pic"
-      alt="Picture of {{ launchDetails.mission_name }}"
-      height="300"
-      width="300"
-      loading="lazy"
-    />
+    <div class="gallery">
+      <img 
+        src="{{ mainPhotoSource != null ? mainPhotoSource : launchDetails.links.flickr_images[0] }}" 
+        height="270" 
+        width="360" />
+      <div class="gallery-thumbnails">
+        <button class="material-icons gallery-nav-btn" (click)="getPrev()">navigate_before</button>
+        <div class="photo-grid">    
+          <img *ngFor="let pic of launchDetails.links.flickr_images; let idx = index"
+            [src]="pic"
+            alt="Picture of {{ launchDetails.mission_name }}"
+            height="60"
+            width="60"
+            loading="lazy"
+            class="gallery-thumbnail"
+            (click)="changeMainPhoto(pic, idx)" />
+        </div>
+        <button class="material-icons gallery-nav-btn" (click)="getNext()">navigate_next</button>
+      </div>
+    </div>
   </section>
 </ng-container>

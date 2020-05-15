@@ -1,8 +1,9 @@
 <ng-container *ngIf="pastLaunches$ | async as pastLaunches">
   <main>
-    <section class="container">
+    <section class="container" [@fadeInAnimation]="pastLaunches.length">
       <mat-card
-        *ngFor="let launch of pastLaunches"
+      *ngFor="let launch of pastLaunches"
+      class="card-list-item"
         [routerLink]="['/', launch.id]"
       >
         <mat-card-header>
@@ -16,8 +17,8 @@
           />
           <mat-card-title>{{ launch.mission_name }}</mat-card-title>
           <mat-card-subtitle
-            >{{ launch.rocket.rocket_name }} - launched
-            {{ launch.launch_date_utc }}</mat-card-subtitle
+          >{{ launch.rocket.rocket_name }} - launched
+            {{ launch.launch_date_utc | relativeTime }}</mat-card-subtitle
           >
         </mat-card-header>
         <img
@@ -25,9 +26,9 @@
           width="300"
           mat-card-image
           loading="lazy"
-          [src]="launch.links.flickr_images[0]"
+          [src]="launch.links.flickr_images[0] != null ? launch.links.flickr_images[0] : imagePlaceholder"
           alt="Photo of {{ launch.mission_name }}"
-        />
+          />
       </mat-card>
     </section>
   </main>

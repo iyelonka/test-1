@@ -1,4 +1,8 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit
+} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { map, switchMap } from "rxjs/operators";
 import { LaunchDetailsGQL } from "../services/spacexGraphql.service";
@@ -9,7 +13,7 @@ import { LaunchDetailsGQL } from "../services/spacexGraphql.service";
   styleUrls: ["./launch-details.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LaunchDetailsComponent {
+export class LaunchDetailsComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly launchDetailsService: LaunchDetailsGQL
@@ -20,4 +24,18 @@ export class LaunchDetailsComponent {
     switchMap(id => this.launchDetailsService.fetch({ id })),
     map(res => res.data.launch)
   );
+
+  mainPhotoSource: string;
+  currentPhotoIndex: number;
+
+  changeMainPhoto(thumbnailSrc: string, idx: number) {
+    this.mainPhotoSource = thumbnailSrc;
+    this.currentPhotoIndex = idx;
+  }
+  getPrev(): void {}
+  getNext(): void {}
+
+  ngOnInit(): void {
+    this.currentPhotoIndex = 0;
+  }
 }
