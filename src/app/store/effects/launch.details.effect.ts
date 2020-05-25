@@ -8,7 +8,7 @@ import {
   loadLaunchDetailsSuccess,
   loadLaunchDetailsFail
 } from "../actions";
-import { LaunchDetailsState } from '../reducers/launch-details.reducer';
+import { LaunchState } from "../reducers";
 import { getLaunchList } from '../selectors';
 import { Store, select } from '@ngrx/store';
 
@@ -16,7 +16,7 @@ import { Store, select } from '@ngrx/store';
 export class LaunchDetailsEffects {
   constructor(
     private actions$: Actions,
-    private readonly store: Store<LaunchDetailsState>,
+    private readonly store: Store<LaunchState>,
     private readonly launchDetailsService: LaunchDetailsGQL
   ) {}
 
