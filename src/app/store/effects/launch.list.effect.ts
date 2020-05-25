@@ -10,7 +10,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 import { of } from "rxjs";
 
 @Injectable()
-export class LaunchEffects {
+export class LaunchListEffects {
   constructor(
     private actions$: Actions,
     private readonly pastLaunchesService: PastLaunchesListGQL

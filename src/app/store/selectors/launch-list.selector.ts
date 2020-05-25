@@ -7,9 +7,7 @@ export const getLaunchListState = createFeatureSelector<LaunchListState>(
 
 export const getLaunchList = createSelector(
   getLaunchListState,
-  (state: any) => {
-    return state.data;
-  }
+  (state: any) => state.data
 );
 
 export const getLaunchListLoaded = createSelector(
